@@ -1,0 +1,51 @@
+#:kivy 1.9.0
+
+TestGame:
+
+<TestGame>:
+	gameworld: gameworld
+	beetle_system: beetle_system
+
+	GameWorld:
+		id: gameworld
+		gamescreenmanager: gamescreenmanager
+		size_of_gameworld: 100*1024
+		zones: {'general': 20000}
+		PositionSystem2D:
+			system_id: 'position'
+			gameworld: gameworld
+			zones: ['general']
+			size_of_component_block: 128
+		Renderer:
+			gameworld: gameworld
+			system_id: 'renderer'
+			zones: ['general']
+			frame_count: 2
+			updateable: True
+			size_of_batches: 512
+			size_of_component_block: 128
+			shader_source: 'assets/glsl/positionshader.glsl'
+		BeetleSystem:
+			id: beetle_system
+			system_id: 'beetle_system'
+			gameworld: gameworld
+			updateable: True
+			#update_time: 0.1
+
+	GameScreenManager:
+		id: gamescreenmanager
+		size: root.size
+		pos: root.pos
+		gameworld: gameworld
+
+<GameScreenManager>:
+	MainScreen:
+		id: main_screen
+
+<MainScreen@GameScreen>:
+	name: 'main'
+	FloatLayout:
+		Label:
+			text: 'The Main'
+			size_hint: (.2, .1)
+			pos_hint: {'x': .45, 'y': .55}
