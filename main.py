@@ -18,7 +18,6 @@ from kivy.properties import StringProperty, NumericProperty, ListProperty
 from kivy.factory import Factory
 from functools import partial
 from beetle_system import BeetleSystem
-print("|finished all imports")
 
 
 class TestGame(Widget):
@@ -31,14 +30,12 @@ class TestGame(Widget):
 			callback=self.init_game)
 
 	def init_game(self):
-		print("|init game")
 		state = 'main'
 		self.setup_states()
 		self.set_state(state)
 		self.beetle_system.start()
 
 	def setup_states(self):
-		print("|setup states")
 		self.gameworld.add_state(state_name='main',
 			systems_added=['renderer'],
 			systems_removed=[], systems_paused=[],
@@ -46,7 +43,6 @@ class TestGame(Widget):
 			screenmanager_screen='main')
 
 	def set_state(self, *args):
-		print("|set state")
 		self.gameworld.state = args[0]
 
 class TestApp(App):
