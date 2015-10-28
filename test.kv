@@ -5,6 +5,7 @@ TestGame:
 <TestGame>:
 	gameworld: gameworld
 	beetle_system: beetle_system
+	base: base
 
 	GameWorld:
 		id: gameworld
@@ -28,9 +29,13 @@ TestGame:
 		BeetleSystem:
 			id: beetle_system
 			system_id: 'beetle_system'
+			base: base
 			gameworld: gameworld
 			updateable: True
 			#update_time: 0.1
+		Base:
+			id: base
+			system_id: 'base'
 
 	GameScreenManager:
 		id: gamescreenmanager
@@ -49,3 +54,8 @@ TestGame:
 			text: 'The Main'
 			size_hint: (.2, .1)
 			pos_hint: {'x': .45, 'y': .55}
+		Button:
+			text: 'Show message'
+			size_hint: (.2, .1)
+			pos_hint: {'x': .45, 'y': .45}
+			on_press: root.show_message()

@@ -1,16 +1,12 @@
 from kivy.core.window import Window
 from kivent_core.systems.gamesystem import GameSystem
-from kivent_core.managers.resource_managers import (
-	texture_manager, model_manager)
+from kivent_core.gameworld import GameWorld
 from kivy.factory import Factory
+from kivy.properties import StringProperty, NumericProperty
 from kivy.clock import Clock
 from random import randint, choice
-from functools import partial
-from kivy.properties import StringProperty
+from base import Base
 
-texture_manager.load_atlas('assets/background_objects.atlas')
-model_manager.load_textured_rectangle(4, 7., 7., 'star1', 'star1-4')
-model_manager.load_textured_rectangle(4, 10., 10., 'star1', 'star1-4-2')
 
 win_x = Window.size[0]
 win_y = Window.size[1]
@@ -24,17 +20,17 @@ class BeetleSystem(GameSystem):
 		super(BeetleSystem, self).__init__(*args, **kwargs)
 
 	def start(self):
-		Clock.schedule_interval(self.draw_stuff, 1.0 / 1.0)
+		Clock.schedule_interval(self.draw_stuff, 1.0 / 147.0)
 
 	def draw_stuff(self, dt):
 		pos = (randint(0, win_x), randint(0, win_y))
 		self.create_beetle(pos)
 
 	def create_beetle(self, pos):
-		vert_mesh_key = choice(['star1-4', 'star1-4-2'])
+		vert_mesh_key = choice(['beetle_up', 'beetle_down'])
 		create_dict = {
 			'position': pos,
-			'renderer': {'texture': 'star1',
+			'renderer': {'texture': vert_mesh_key,
 				'vert_mesh_key': vert_mesh_key},
 			'beetle_system': {},
 			}
@@ -51,8 +47,8 @@ class BeetleSystem(GameSystem):
 			if component is not None:
 				entity_id = component.entity_id
 				pos = entities[entity_id].position
-				pos.x += .45
-				pos.y -= .45
+				pos.x += 5.75
+				pos.y -= 5.75
 				if pos.y < win_y / 10:
 					self.remove_beetle(entity_id)
 
